@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Name — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f9f8f6;
+      --surface: #ffffff;
+      --ink: #1a1814;
+      --ink-2: #5a5650;
+      --ink-3: #9a958f;
+      --accent: #2d6a4f;
+      --accent-light: #d8f3dc;
+      --border: #e8e4de;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 5%;
+      background: rgba(249,248,246,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--ink-2);
+      font-size: 0.875rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 8rem 5% 5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .hero-eyebrow {
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      opacity: 0; animation: fadeUp 0.7s 0.1s forwards;
+    }
+    .hero-name {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 8vw, 6rem);
+      line-height: 1.05;
+      color: var(--ink);
+      margin-bottom: 1.5rem;
+      opacity: 0; animation: fadeUp 0.7s 0.25s forwards;
+    }
+    .hero-name em { font-style: italic; color: var(--accent); }
+    .hero-desc {
+      font-size: 1.15rem;
+      color: var(--ink-2);
+      font-weight: 300;
+      max-width: 560px;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+      opacity: 0; animation: fadeUp 0.7s 0.4s forwards;
+    }
+    .hero-links {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.7s 0.55s forwards;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.75rem;
+      border-radius: 2px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: #1f4f3a; }
+    .btn-outline { background: transparent; color: var(--ink); border: 1.5px solid var(--border); }
+    .btn-outline:hover { border-color: var(--ink); }
+
+    .hero-scroll {
+      margin-top: 5rem;
+      display: flex; align-items: center; gap: 0.75rem;
+      color: var(--ink-3); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase;
+      opacity: 0; animation: fadeUp 0.7s 0.7s forwards;
+    }
+    .scroll-line {
+      width: 40px; height: 1px; background: var(--ink-3);
+      display: inline-block;
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 6rem 5%; }
+    .section-inner { max-width: 900px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.75rem; font-weight: 500; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--ink);
+      margin-bottom: 3rem;
+      line-height: 1.15;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .about-text p { color: var(--ink-2); font-weight: 300; margin-bottom: 1rem; line-height: 1.8; }
+    .about-facts { display: flex; flex-direction: column; gap: 1.25rem; }
+    .fact {
+      padding: 1.25rem 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--bg);
+    }
+    .fact-label { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 0.35rem; }
+    .fact-value { font-size: 0.95rem; color: var(--ink); font-weight: 400; }
+
+    /* ── SKILLS ── */
+    #skills { }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+    .skill-card {
+      padding: 1.75rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .skill-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .skill-card-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+    .skill-card-title { font-weight: 500; font-size: 0.9rem; margin-bottom: 0.5rem; color: var(--ink); }
+    .skill-card-list { font-size: 0.82rem; color: var(--ink-3); line-height: 1.7; }
+
+    /* ── EXPERIENCE ── */
+    #experience { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .exp-list { display: flex; flex-direction: column; gap: 0; }
+    .exp-item {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 2rem;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .exp-item:last-child { border-bottom: none; }
+    .exp-date { font-size: 0.8rem; color: var(--ink-3); padding-top: 0.2rem; line-height: 1.6; }
+    .exp-role { font-weight: 500; font-size: 1.05rem; color: var(--ink); margin-bottom: 0.15rem; }
+    .exp-company { font-size: 0.875rem; color: var(--accent); margin-bottom: 0.75rem; }
+    .exp-desc { font-size: 0.875rem; color: var(--ink-2); line-height: 1.75; font-weight: 300; }
+    .exp-desc li { margin-bottom: 0.4rem; padding-left: 1rem; position: relative; list-style: none; }
+    .exp-desc li::before { content: "—"; position: absolute; left: 0; color: var(--ink-3); }
+
+    /* ── PROJECTS PLACEHOLDER ── */
+    #projects { }
+    .projects-coming {
+      border: 1.5px dashed var(--border);
+      border-radius: 4px;
+      padding: 4rem 2rem;
+      text-align: center;
+      color: var(--ink-3);
+    }
+    .projects-coming .big { font-family: var(--serif); font-size: 1.5rem; color: var(--ink-2); margin-bottom: 0.5rem; }
+    .projects-coming p { font-size: 0.875rem; line-height: 1.7; max-width: 400px; margin: 0 auto; }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--ink); }
+    #contact .section-label { color: #6db88a; }
+    #contact .section-title { color: #f9f8f6; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .contact-text p { color: #9a9590; font-weight: 300; line-height: 1.8; font-size: 0.95rem; }
+    .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-link {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1rem 1.25rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 4px;
+      text-decoration: none;
+      color: #f9f8f6;
+      font-size: 0.875rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .contact-link:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.25); }
+    .contact-link-icon { font-size: 1.1rem; width: 1.5rem; text-align: center; }
+    .contact-link-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: #6db88a; margin-bottom: 0.1rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 1.5rem 5%;
+      background: var(--ink);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+      font-size: 0.78rem;
+      color: #5a5650;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 680px) {
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">YN.</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <p class="hero-eyebrow">Front-End Developer &amp; CIS Graduate</p>
+    <h1 class="hero-name">Hi, I'm <em>Your Name.</em></h1>
+    <p class="hero-desc">
+      I build clean, responsive websites with a passion for great user experience.
+      Proficient in HTML, CSS, JavaScript, Python, and more — currently levelling up with React.
+    </p>
+    <div class="hero-links">
+      <a href="#experience" class="btn btn-primary">View My Work</a>
+      <a href="#contact" class="btn btn-outline">Get In Touch</a>
+    </div>
+    <div class="hero-scroll">
+      <span class="scroll-line"></span> Scroll to explore
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-inner">
+      <p class="section-label reveal">About Me</p>
+      <h2 class="section-title reveal">A developer who loves<br><em style="font-style:italic">building things.</em></h2>
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p>
+            I'm a front-end developer based in Abbotsford, Canada, with a Diploma in Computer Information Systems.
+            I got into tech through a genuine love of how things work — from studying robotics as a kid to
+            volunteering at my school's tech festival.
+          </p>
+          <p>
+            I've worked on real-world web projects at Valcraft Printing and gained unique insight into AI
+            systems through prompt engineering work at Outlier AI. I love learning and I'm currently
+            diving into React to grow my skills.
+          </p>
+          <p>
+            When I'm not coding, I'm exploring new technologies and finding ways to make the web
+            a little more intuitive for everyone.
+          </p>
+        </div>
+        <div class="about-facts reveal">
+          <div class="fact">
+            <div class="fact-label">Based in</div>
+            <div class="fact-value">Abbotsford, BC, Canada</div>
+          </div>
+          <div class="fact">
+            <div class="fact-label">Education</div>
+            <div class="fact-value">Diploma — Computer Information Systems (CIS)</div>
+          </div>
+          <div class="fact">
+            <div class="fact-label">Currently Learning</div>
+            <div class="fact-value">React.js — building my first app</div>
+          </div>
+          <div class="fact">
+            <div class="fact-label">Open To</div>
+            <div class="fact-value">Front-End & Web Development roles</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-inner">
+      <p class="section-label reveal">What I Know</p>
+      <h2 class="section-title reveal">Technical Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-card reveal">
+          <div class="skill-card-icon">🌐</div>
+          <div class="skill-card-title">Web Development</div>
+          <div class="skill-card-list">HTML5, CSS3, JavaScript (ES6+), React (learning)</div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-card-icon">💻</div>
+          <div class="skill-card-title">Programming</div>
+          <div class="skill-card-list">Python, Java, C++</div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-card-icon">🗄️</div>
+          <div class="skill-card-title">Databases</div>
+          <div class="skill-card-list">SQL, data programming fundamentals</div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-card-icon">🤖</div>
+          <div class="skill-card-title">AI & Other</div>
+          <div class="skill-card-list">AI prompt engineering, robotics fundamentals, Git</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-inner">
+      <p class="section-label reveal">Where I've Worked</p>
+      <h2 class="section-title reveal">Experience</h2>
+      <div class="exp-list">
+
+        <div class="exp-item reveal">
+          <div class="exp-date">Month YYYY<br>→ Present</div>
+          <div>
+            <div class="exp-role">Front-End Developer</div>
+            <div class="exp-company">Valcraft Printing</div>
+            <ul class="exp-desc">
+              <li>Designed and developed responsive web pages using HTML5, CSS3, and JavaScript.</li>
+              <li>Translated design concepts into cross-browser-compatible interfaces focused on usability.</li>
+              <li>Maintained web content to ensure consistent branding and optimal user experience across devices.</li>
+              <li>Collaborated with internal teams to identify and resolve front-end issues.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-item reveal">
+          <div class="exp-date">Month YYYY<br>→ Month YYYY</div>
+          <div>
+            <div class="exp-role">AI Prompt Engineer</div>
+            <div class="exp-company">Outlier AI</div>
+            <ul class="exp-desc">
+              <li>Crafted and evaluated prompts used to train and fine-tune large language models.</li>
+              <li>Reviewed AI-generated outputs for accuracy, clarity, and project alignment.</li>
+              <li>Provided structured feedback to iteratively improve model behavior and output quality.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-item reveal">
+          <div class="exp-date">YYYY</div>
+          <div>
+            <div class="exp-role">Tech Fest Volunteer</div>
+            <div class="exp-company">Your School Name</div>
+            <ul class="exp-desc">
+              <li>Supported the organization and running of a school-wide technology festival.</li>
+              <li>Guided participants through tech demos and promoted STEM engagement.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-inner">
+      <p class="section-label reveal">What I've Built</p>
+      <h2 class="section-title reveal">Projects</h2>
+      <div class="projects-coming reveal">
+        <div class="big">Coming Soon</div>
+        <p>
+          I'm currently working on my first React project. Check back soon —
+          or feel free to reach out while I build it out!
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-inner">
+      <p class="section-label reveal">Say Hello</p>
+      <h2 class="section-title reveal">Let's Work Together</h2>
+      <div class="contact-grid">
+        <div class="contact-text reveal">
+          <p>
+            I'm currently open to front-end and web development opportunities.
+            Whether you have a role, a project, or just want to connect —
+            my inbox is always open.
+          </p>
+        </div>
+        <div class="contact-links reveal">
+          <a href="mailto:yourname@email.com" class="contact-link">
+            <span class="contact-link-icon">✉️</span>
+            <div>
+              <div class="contact-link-label">Email</div>
+              yourname@email.com
+            </div>
+          </a>
+          <a href="https://linkedin.com/in/yourname" target="_blank" class="contact-link">
+            <span class="contact-link-icon">💼</span>
+            <div>
+              <div class="contact-link-label">LinkedIn</div>
+              linkedin.com/in/yourname
+            </div>
+          </a>
+          <a href="https://github.com/yourname" target="_blank" class="contact-link">
+            <span class="contact-link-icon">🐙</span>
+            <div>
+              <div class="contact-link-label">GitHub</div>
+              github.com/yourname
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Your Name. Built with HTML, CSS & JavaScript.</p>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
